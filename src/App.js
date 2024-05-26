@@ -97,14 +97,12 @@ function App() {
             },
             body : JSON.stringify({is_new: "false", username: userName})
         }).then(res => res.json()).then((res) => {
-            console.log(res);
             data.ext_user_token = res.token;
-            (function () {
-                flyySDK.setActionButtonPosition('left');
-                flyySDK.setActionButtonColor('#faa232');
-                flyySDK.setActionButtonText('Reward Points');
-                flyySDK.init(JSON.stringify(data));
-            })();
+            data.device_id = res.device_id;
+            flyySDK.setActionButtonPosition('left');
+            flyySDK.setActionButtonColor('#faa232');
+            flyySDK.setActionButtonText('Reward Points');
+            flyySDK.init(JSON.stringify(data));
         })
     }
 
@@ -143,6 +141,19 @@ function App() {
 
                 <h4>Following Methods are availabe for various screens to call.</h4>
                 <div className="app d-flex flex-wrap mb-3">
+
+                    <div className={"card m-2"} style={{ width: 20 + 'rem' }}>
+                        <h5 className={"card-header"}>CheckIn Method</h5>
+                        <div className={"card-body"}>
+                            <h6 className={"card-subtitle mb-2 text-muted"}>To get Flyy Invite and Earn Offer</h6>
+                            <CodeBlock
+                                text={"flyySDK.getInviteAndEarnOfferData()"}
+                                language={language}
+                                theme={dracula} />
+                                <p className={"card-text"}>It will only work when there is any live offer available</p>
+                            <button onClick={async () => {console.log(await flyySDK.getInviteAndEarnOfferData())}} className={"form-control btn-primary mt-2 submit-button"} >Flyy Invite and Earn Offer Data</button>
+                        </div>
+                    </div>
 
                     <div className={"card m-2"} style={{ width: 20 + 'rem' }}>
                         <h5 className={"card-header"}>Offers Method</h5>
